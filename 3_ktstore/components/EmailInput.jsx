@@ -10,7 +10,7 @@ export default function EmailInput() {
     try {
       // write the post fetch request to send off the email to whatever service it is that you use to build up your email list
     } catch(err) {
-      console.log('FAiled to add subscriber: ', err.message)
+      console.log('Failed to add subscriber: ', err.message)
     }
   }
   return (
