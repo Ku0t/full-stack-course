@@ -4,6 +4,7 @@ import Head from "./head";
 import Link from "next/link";
 import Cart from "@/components/Cart";
 import EmailInput from "@/components/EmailInput";
+import ProductsProvider from "@/context/ProductContext";
 
 export const metadata = {
   title: "KTStore",
@@ -12,6 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <ProductsProvider>
     <html lang="en">
       <Head />
       <body>
@@ -41,8 +43,8 @@ export default function RootLayout({ children }) {
             <div className="links-container">
               <div>
                 <h3>Ku0t</h3>
-                <Link href={'/'}>Brogram</Link>
-                <Link href={'/'}>Exxy</Link>
+                <Link target="_blank" href={'/'}>Brogram</Link>
+                <Link target="_blank" href={'/'}>Exxy</Link>
               </div>
               <div>
                 <h3>Store</h3>
@@ -58,13 +60,14 @@ export default function RootLayout({ children }) {
             <div className="socials">
               <p>© <a href="https://www.kuotthiik.com" target="_blank">Ku0t</a> 2025<br />Built with NextJS & <a target="_blank" href="https://www.fantacsss.smoljames.com">FantaCSS</a> 🔥</p>
               <div className="social-links">
-                <Link href={'/'} target="_blank"><i className="fa-brands fa-github"></i></Link>
-                <Link href={'/'} target="_blank"><i className="fa-brands fa-linkedin"></i></Link>
+                <Link href={'https://github.com/Ku0t'} target="_blank"><i className="fa-brands fa-github"></i></Link>
+                <Link href={'https://www.linkedin.com/in/kuot-thiik-11b019147/'} target="_blank"><i className="fa-brands fa-linkedin"></i></Link>
               </div>
             </div>
           </footer>
         </div>
       </body>
     </html>
+    </ProductsProvider>
   );
 }
