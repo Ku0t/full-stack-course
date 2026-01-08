@@ -3,6 +3,7 @@ import "./fanta.css";
 import Head from "./Head";
 import Link from "next/link";
 import GoTo from "@/components/GoTo";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata = {
   title: "Exxy · The Subscription Tracker",
@@ -31,14 +32,22 @@ const footer = (
           <p>|</p>
           <button disabled>Install app</button>
         </div>
-        <p className="copyright">© Copyright 2026-2027, Kuot Thiik.<br />All rights reserved.</p>
+        <p className="copyright">
+          © Copyright 2026-2027, Kuot Thiik.
+          <br />
+          All rights reserved.
+        </p>
       </div>
       <div>
-        <p>Facing issues? <a>Get help</a></p>
-        <p>Suggestions for improvement? <a>Share feedback</a></p>
+        <p>
+          Facing issues? <a>Get help</a>
+        </p>
+        <p>
+          Suggestions for improvement? <a>Share feedback</a>
+        </p>
         <div>
-          <Link href={'/privacy'}>Privacy Policy</Link>
-          <Link href={'tos'}>Terms of Service</Link>
+          <Link href={"/privacy"}>Privacy Policy</Link>
+          <Link href={"tos"}>Terms of Service</Link>
         </div>
       </div>
     </div>
@@ -49,12 +58,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head />
-      <body>
-        {header}
-        <div className="full-line" />
-        <main>{children}</main>
-        {footer}
-      </body>
+      <AuthProvider>
+        <body>
+          {header}
+          <div className="full-line" />
+          <main>{children}</main>
+          {footer}
+        </body>
+      </AuthProvider>
     </html>
   );
 }

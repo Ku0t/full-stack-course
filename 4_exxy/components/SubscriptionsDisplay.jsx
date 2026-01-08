@@ -1,11 +1,27 @@
+import { useAuth } from "@/context/AuthContext";
 import { getDaysUntilNextCharge, subscriptions } from "@/utils";
 
-export default function SubscriptionsDisplay() {
+export default function SubscriptionsDisplay(props) {
+  const { handleShowInput, isAddEntry, setFormData, setIsAddEntry } = props;
+  const { handleDeleteSubscription, userData } = useAuth();
+  console.log(userData)
+
+  if (!userData?.subscriptions) { return null }
+
+  function handleEditSubscription(index) {
+    const data = userData.subscriptions.find((val, valIndex) => {
+      return valIndex === index;
+    });
+    setFormData(data);
+    handleDeleteSubscription(index);
+    setIsAddEntry(true);
+  }
+
   return (
     <section>
       <h2>Your Subscriptions</h2>
       <div className="card-container">
-        {subscriptions.map((sub, subIndex) => {
+        {userData.subscriptions.map((sub, subIndex) => {
           const {
             name,
             category,
@@ -51,25 +67,34 @@ export default function SubscriptionsDisplay() {
                   <h4>{getDaysUntilNextCharge(startDate, billingFrequency)}</h4>
                 </div>
               </div>
-                <div className="white-line" />
-                <p>{notes}</p>
-                <div className="subscription-actions">
-                  <button className="button-card">
-                    <i className="fa-solid fa-pen-to-square"></i>
-                    Edit
-                  </button>
-                  <button className="button-card">
-                    <i className="fa-solid fa-trash"></i>
-                    Delete
-                  </button>
-                </div>
+              <div className="white-line" />
+              <p>{notes}</p>
+              <div className="subscription-actions">
+                <button onClick={() => {
+                    handleEditSubscription(subIndex)
+                }} className="button-card">
+                  <i className="fa-solid fa-pen-to-square"></i>
+                  Edit
+                </button>
+                <button onClick={() => {
+                    handleDeleteSubscription(subIndex)
+                }} className="button-card">
+                  <i className="fa-solid fa-trash"></i>
+                  Delete
+                </button>
+              </div>
             </div>
           );
         })}
-        <button className="button-card add-subscriptions">
+        {!isAddEntry && (
+          <button
+            onClick={handleShowInput}
+            className="button-card add-subscriptions"
+          >
             <i className="fa-solid fa-plus"></i>
             <h5>Add new subscription</h5>
-        </button>
+          </button>
+        )}
       </div>
     </section>
   );
