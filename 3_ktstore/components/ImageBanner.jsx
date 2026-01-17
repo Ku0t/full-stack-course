@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 
 export default function ImageBanner() {
-  const [ isLoaded, setIsLoaded ] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const imgRef = useRef();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function ImageBanner() {
         style={{ opacity: isLoaded ? 1 : 0 }}
         onLoad={() => {
           // when the high resolution image is completely loaded, this callback function will be executed and the intention is to get it to take this initially invisible image, and now make it visible
-          setIsLoaded(true)
+          setIsLoaded(true);
         }}
       />
       <div className="cta-btns-container">
